@@ -133,7 +133,6 @@ ITEM.functions.EquipUn = { -- sorry, for name order.
 	OnCanRun = function(item)
 		local client = item.player
 
-		if item.allowedModels and !table.HasValue(item.allowedModels, item.player:GetModel()) then return false end
 		return !IsValid(item.entity) and IsValid(client) and item:GetData("equip") == true and
 			hook.Run("CanPlayerUnequipItem", client, item) != false and item.invID == client:GetCharacter():GetInventory():GetID()
 	end
@@ -232,6 +231,7 @@ ITEM.functions.Equip = {
 	OnCanRun = function(item)
 		local client = item.player
 
+		if item.allowedModels and !table.HasValue(item.allowedModels, item.player:GetModel()) then return false end
 		return !IsValid(item.entity) and IsValid(client) and item:GetData("equip") != true and item:CanEquipOutfit() and
 			hook.Run("CanPlayerEquipItem", client, item) != false and item.invID == client:GetCharacter():GetInventory():GetID()
 	end
